@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SegurosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Agente">
+    <Key>
+      <PropertyRef Name="IdAgente" />
+    </Key>
+    <Property Name="IdAgente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdAseguradora" Type="int" Nullable="false" />
+    <Property Name="NombreAgente" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Aseguradora">
+    <Key>
+      <PropertyRef Name="IdAseguradora" />
+    </Key>
+    <Property Name="IdAseguradora" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreAseguradora" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nit" Type="int" Nullable="false" />
+    <Property Name="Telefono" Type="int" Nullable="false" />
+    <Property Name="Contacto" Type="varchar" MaxLength="50" />
+    <Property Name="Direccion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="GestionFalabella">
+    <Key>
+      <PropertyRef Name="IdGestion" />
+    </Key>
+    <Property Name="IdGestion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdAseguradora" Type="int" Nullable="false" />
+    <Property Name="IdAgente" Type="int" Nullable="false" />
+    <Property Name="NombreCliente" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cedula" Type="int" Nullable="false" />
+    <Property Name="Telefono" Type="int" />
+    <Property Name="Direccion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="GestionProductos">
+    <Key>
+      <PropertyRef Name="IdGestion" />
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdGestion" Type="int" Nullable="false" />
+    <Property Name="IdProducto" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdAseguradora" Type="int" Nullable="false" />
+    <Property Name="NombreProducto" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CodigoProducto" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Agente_Aseguradora">
+    <End Role="Aseguradora" Type="Self.Aseguradora" Multiplicity="1" />
+    <End Role="Agente" Type="Self.Agente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aseguradora">
+        <PropertyRef Name="IdAseguradora" />
+      </Principal>
+      <Dependent Role="Agente">
+        <PropertyRef Name="IdAseguradora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionFalabella_Agente">
+    <End Role="Agente" Type="Self.Agente" Multiplicity="1" />
+    <End Role="GestionFalabella" Type="Self.GestionFalabella" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agente">
+        <PropertyRef Name="IdAgente" />
+      </Principal>
+      <Dependent Role="GestionFalabella">
+        <PropertyRef Name="IdAgente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionFalabella_Aseguradora">
+    <End Role="Aseguradora" Type="Self.Aseguradora" Multiplicity="1" />
+    <End Role="GestionFalabella" Type="Self.GestionFalabella" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aseguradora">
+        <PropertyRef Name="IdAseguradora" />
+      </Principal>
+      <Dependent Role="GestionFalabella">
+        <PropertyRef Name="IdAseguradora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionProductos_GestionFalabella">
+    <End Role="GestionFalabella" Type="Self.GestionFalabella" Multiplicity="1" />
+    <End Role="GestionProductos" Type="Self.GestionProductos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GestionFalabella">
+        <PropertyRef Name="IdGestion" />
+      </Principal>
+      <Dependent Role="GestionProductos">
+        <PropertyRef Name="IdGestion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionProductos_Productos">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="GestionProductos" Type="Self.GestionProductos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="GestionProductos">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Productos_Aseguradora">
+    <End Role="Aseguradora" Type="Self.Aseguradora" Multiplicity="1" />
+    <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aseguradora">
+        <PropertyRef Name="IdAseguradora" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="IdAseguradora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SegurosModelStoreContainer">
+    <EntitySet Name="Agente" EntityType="Self.Agente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Aseguradora" EntityType="Self.Aseguradora" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GestionFalabella" EntityType="Self.GestionFalabella" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GestionProductos" EntityType="Self.GestionProductos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Agente_Aseguradora" Association="Self.FK_Agente_Aseguradora">
+      <End Role="Aseguradora" EntitySet="Aseguradora" />
+      <End Role="Agente" EntitySet="Agente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionFalabella_Agente" Association="Self.FK_GestionFalabella_Agente">
+      <End Role="Agente" EntitySet="Agente" />
+      <End Role="GestionFalabella" EntitySet="GestionFalabella" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionFalabella_Aseguradora" Association="Self.FK_GestionFalabella_Aseguradora">
+      <End Role="Aseguradora" EntitySet="Aseguradora" />
+      <End Role="GestionFalabella" EntitySet="GestionFalabella" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionProductos_GestionFalabella" Association="Self.FK_GestionProductos_GestionFalabella">
+      <End Role="GestionFalabella" EntitySet="GestionFalabella" />
+      <End Role="GestionProductos" EntitySet="GestionProductos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionProductos_Productos" Association="Self.FK_GestionProductos_Productos">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="GestionProductos" EntitySet="GestionProductos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Productos_Aseguradora" Association="Self.FK_Productos_Aseguradora">
+      <End Role="Aseguradora" EntitySet="Aseguradora" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,43 @@
+﻿@model Seguros.Models.Productos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Productos</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IdProducto)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdProducto)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Aseguradora.NombreAseguradora)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Aseguradora.NombreAseguradora)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NombreProducto)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NombreProducto)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CodigoProducto)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CodigoProducto)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

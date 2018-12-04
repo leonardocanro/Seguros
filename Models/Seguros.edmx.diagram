@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dfe4c900da7a43f5bac18d39fa56464a" Name="Diagram1">
+        <EntityTypeShape EntityType="SegurosModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SegurosModel.Agente" Width="1.5" PointX="5.625" PointY="1.25" />
+        <EntityTypeShape EntityType="SegurosModel.Aseguradora" Width="1.5" PointX="3.375" PointY="1.125" />
+        <EntityTypeShape EntityType="SegurosModel.GestionFalabella" Width="1.5" PointX="7.875" PointY="1" />
+        <EntityTypeShape EntityType="SegurosModel.Productos" Width="1.5" PointX="10.125" PointY="1.375" />
+        <AssociationConnector Association="SegurosModel.FK_Agente_Aseguradora" />
+        <AssociationConnector Association="SegurosModel.FK_GestionFalabella_Agente" />
+        <AssociationConnector Association="SegurosModel.FK_GestionFalabella_Aseguradora" />
+        <AssociationConnector Association="SegurosModel.FK_Productos_Aseguradora" />
+        <AssociationConnector Association="SegurosModel.GestionProductos" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,68 @@
+﻿@model Seguros.Models.GestionFalabella
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>GestionFalabella</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IdGestion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdGestion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Aseguradora.NombreAseguradora)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Aseguradora.NombreAseguradora)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Agente.NombreAgente)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Agente.NombreAgente)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NombreCliente)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NombreCliente)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Cedula)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Cedula)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Telefono)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telefono)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Direccion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Direccion)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

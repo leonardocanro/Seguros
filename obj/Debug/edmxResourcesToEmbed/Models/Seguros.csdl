@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SegurosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityContainer Name="SegurosEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Agente" EntityType="SegurosModel.Agente" />
+    <EntitySet Name="Aseguradora" EntityType="SegurosModel.Aseguradora" />
+    <EntitySet Name="GestionFalabella" EntityType="SegurosModel.GestionFalabella" />
+    <EntitySet Name="Productos" EntityType="SegurosModel.Productos" />
+    <AssociationSet Name="FK_Agente_Aseguradora" Association="SegurosModel.FK_Agente_Aseguradora">
+      <End Role="Aseguradora" EntitySet="Aseguradora" />
+      <End Role="Agente" EntitySet="Agente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionFalabella_Agente" Association="SegurosModel.FK_GestionFalabella_Agente">
+      <End Role="Agente" EntitySet="Agente" />
+      <End Role="GestionFalabella" EntitySet="GestionFalabella" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionFalabella_Aseguradora" Association="SegurosModel.FK_GestionFalabella_Aseguradora">
+      <End Role="Aseguradora" EntitySet="Aseguradora" />
+      <End Role="GestionFalabella" EntitySet="GestionFalabella" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Productos_Aseguradora" Association="SegurosModel.FK_Productos_Aseguradora">
+      <End Role="Aseguradora" EntitySet="Aseguradora" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="GestionProductos" Association="SegurosModel.GestionProductos">
+      <End Role="GestionFalabella" EntitySet="GestionFalabella" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Agente">
+    <Key>
+      <PropertyRef Name="IdAgente" />
+    </Key>
+    <Property Name="IdAgente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdAseguradora" Type="Int32" Nullable="false" />
+    <Property Name="NombreAgente" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Aseguradora" Relationship="SegurosModel.FK_Agente_Aseguradora" FromRole="Agente" ToRole="Aseguradora" />
+    <NavigationProperty Name="GestionFalabella" Relationship="SegurosModel.FK_GestionFalabella_Agente" FromRole="Agente" ToRole="GestionFalabella" />
+  </EntityType>
+  <EntityType Name="Aseguradora">
+    <Key>
+      <PropertyRef Name="IdAseguradora" />
+    </Key>
+    <Property Name="IdAseguradora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreAseguradora" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Nit" Type="Int32" Nullable="false" />
+    <Property Name="Telefono" Type="Int32" Nullable="false" />
+    <Property Name="Contacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Agente" Relationship="SegurosModel.FK_Agente_Aseguradora" FromRole="Aseguradora" ToRole="Agente" />
+    <NavigationProperty Name="GestionFalabella" Relationship="SegurosModel.FK_GestionFalabella_Aseguradora" FromRole="Aseguradora" ToRole="GestionFalabella" />
+    <NavigationProperty Name="Productos" Relationship="SegurosModel.FK_Productos_Aseguradora" FromRole="Aseguradora" ToRole="Productos" />
+  </EntityType>
+  <EntityType Name="GestionFalabella">
+    <Key>
+      <PropertyRef Name="IdGestion" />
+    </Key>
+    <Property Name="IdGestion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdAseguradora" Type="Int32" Nullable="false" />
+    <Property Name="IdAgente" Type="Int32" Nullable="false" />
+    <Property Name="NombreCliente" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Cedula" Type="Int32" Nullable="false" />
+    <Property Name="Telefono" Type="Int32" />
+    <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Agente" Relationship="SegurosModel.FK_GestionFalabella_Agente" FromRole="GestionFalabella" ToRole="Agente" />
+    <NavigationProperty Name="Aseguradora" Relationship="SegurosModel.FK_GestionFalabella_Aseguradora" FromRole="GestionFalabella" ToRole="Aseguradora" />
+    <NavigationProperty Name="Productos" Relationship="SegurosModel.GestionProductos" FromRole="GestionFalabella" ToRole="Productos" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdAseguradora" Type="Int32" Nullable="false" />
+    <Property Name="NombreProducto" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CodigoProducto" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Aseguradora" Relationship="SegurosModel.FK_Productos_Aseguradora" FromRole="Productos" ToRole="Aseguradora" />
+    <NavigationProperty Name="GestionFalabella" Relationship="SegurosModel.GestionProductos" FromRole="Productos" ToRole="GestionFalabella" />
+  </EntityType>
+  <Association Name="FK_Agente_Aseguradora">
+    <End Type="SegurosModel.Aseguradora" Role="Aseguradora" Multiplicity="1" />
+    <End Type="SegurosModel.Agente" Role="Agente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aseguradora">
+        <PropertyRef Name="IdAseguradora" />
+      </Principal>
+      <Dependent Role="Agente">
+        <PropertyRef Name="IdAseguradora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionFalabella_Agente">
+    <End Type="SegurosModel.Agente" Role="Agente" Multiplicity="1" />
+    <End Type="SegurosModel.GestionFalabella" Role="GestionFalabella" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agente">
+        <PropertyRef Name="IdAgente" />
+      </Principal>
+      <Dependent Role="GestionFalabella">
+        <PropertyRef Name="IdAgente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionFalabella_Aseguradora">
+    <End Type="SegurosModel.Aseguradora" Role="Aseguradora" Multiplicity="1" />
+    <End Type="SegurosModel.GestionFalabella" Role="GestionFalabella" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aseguradora">
+        <PropertyRef Name="IdAseguradora" />
+      </Principal>
+      <Dependent Role="GestionFalabella">
+        <PropertyRef Name="IdAseguradora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Productos_Aseguradora">
+    <End Type="SegurosModel.Aseguradora" Role="Aseguradora" Multiplicity="1" />
+    <End Type="SegurosModel.Productos" Role="Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aseguradora">
+        <PropertyRef Name="IdAseguradora" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="IdAseguradora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GestionProductos">
+    <End Type="SegurosModel.GestionFalabella" Role="GestionFalabella" Multiplicity="*" />
+    <End Type="SegurosModel.Productos" Role="Productos" Multiplicity="*" />
+  </Association>
+</Schema>

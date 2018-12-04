@@ -1,0 +1,64 @@
+﻿@model Seguros.Models.GestionFalabella
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>GestionFalabella</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IdGestion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdGestion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Aseguradora.NombreAseguradora)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Aseguradora.NombreAseguradora)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Agente.NombreAgente)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Agente.NombreAgente)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NombreCliente)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NombreCliente)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Cedula)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Cedula)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Telefono)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telefono)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Direccion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Direccion)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

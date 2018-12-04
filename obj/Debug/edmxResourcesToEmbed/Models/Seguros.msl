@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SegurosModelStoreContainer" CdmEntityContainer="SegurosEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="SegurosModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Agente">
+      <EntityTypeMapping TypeName="SegurosModel.Agente">
+        <MappingFragment StoreEntitySet="Agente">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="NombreAgente" ColumnName="NombreAgente" />
+          <ScalarProperty Name="IdAseguradora" ColumnName="IdAseguradora" />
+          <ScalarProperty Name="IdAgente" ColumnName="IdAgente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Aseguradora">
+      <EntityTypeMapping TypeName="SegurosModel.Aseguradora">
+        <MappingFragment StoreEntitySet="Aseguradora">
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Nit" ColumnName="Nit" />
+          <ScalarProperty Name="NombreAseguradora" ColumnName="NombreAseguradora" />
+          <ScalarProperty Name="IdAseguradora" ColumnName="IdAseguradora" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GestionFalabella">
+      <EntityTypeMapping TypeName="SegurosModel.GestionFalabella">
+        <MappingFragment StoreEntitySet="GestionFalabella">
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
+          <ScalarProperty Name="IdAgente" ColumnName="IdAgente" />
+          <ScalarProperty Name="IdAseguradora" ColumnName="IdAseguradora" />
+          <ScalarProperty Name="IdGestion" ColumnName="IdGestion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Productos">
+      <EntityTypeMapping TypeName="SegurosModel.Productos">
+        <MappingFragment StoreEntitySet="Productos">
+          <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+          <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+          <ScalarProperty Name="IdAseguradora" ColumnName="IdAseguradora" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="GestionProductos" TypeName="SegurosModel.GestionProductos" StoreEntitySet="GestionProductos">
+      <EndProperty Name="Productos">
+        <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+      </EndProperty>
+      <EndProperty Name="GestionFalabella">
+        <ScalarProperty Name="IdGestion" ColumnName="IdGestion" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

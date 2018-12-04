@@ -1,0 +1,60 @@
+﻿@model Seguros.Models.Productos
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Productos</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdProducto)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IdProducto)
+            @Html.ValidationMessageFor(model => model.IdProducto)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdAseguradora, "Aseguradora")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("IdAseguradora", String.Empty)
+            @Html.ValidationMessageFor(model => model.IdAseguradora)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NombreProducto)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NombreProducto)
+            @Html.ValidationMessageFor(model => model.NombreProducto)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CodigoProducto)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CodigoProducto)
+            @Html.ValidationMessageFor(model => model.CodigoProducto)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
