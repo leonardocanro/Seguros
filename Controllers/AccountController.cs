@@ -41,7 +41,8 @@ namespace Seguros.Controllers
             Agente agg = db.Agente.Where(x=>x.Login==log && x.Password==pass).SingleOrDefault();
             if (ModelState.IsValid && agg!=null )
             {
-                return RedirectToAction("");
+                Session["UserId"] = agg.IdAgente.ToString();
+                return RedirectToAction("Index","Gestion");
             }
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario

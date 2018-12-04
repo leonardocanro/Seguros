@@ -87,4 +87,3 @@ c:\users\nlcan01\documents\visual studio 2013\Projects\Seguros\Seguros\bin\zh-Ha
 c:\users\nlcan01\documents\visual studio 2013\Projects\Seguros\Seguros\bin\zh-Hant\System.Spatial.resources.dll
 c:\users\nlcan01\documents\visual studio 2013\Projects\Seguros\Seguros\obj\Debug\Seguros.dll
 c:\users\nlcan01\documents\visual studio 2013\Projects\Seguros\Seguros\obj\Debug\Seguros.pdb
-c:\users\nlcan01\documents\visual studio 2013\Projects\Seguros\Seguros\obj\Debug\Seguros.csprojResolveAssemblyReference.cache

@@ -4,7 +4,14 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<div id='ModalDiv' class='modal fade' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='ModalContent'></div>
+        </div>
+    </div>
+</div>
+<h2>Crear</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
@@ -13,28 +20,30 @@
     <fieldset>
         <legend>GestionFalabella</legend>
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.IdGestion)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.IdGestion)
             @Html.ValidationMessageFor(model => model.IdGestion)
-        </div>
+        </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.IdAseguradora, "Aseguradora")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdAseguradora", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdAseguradora)
+            @ViewBag.NombreAseguradora
+            <input type="hidden" name="IdAseguradora" value="@ViewBag.IdAseguradora" />
+            @*@Html.ValidationMessageFor(model => model.IdAseguradora)*@
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.IdAgente, "Agente")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdAgente", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdAgente)
+            @ViewBag.NombreAgente
+            <input type="hidden" name="IdAgente" value="@ViewBag.IdAgente" />
+            @*@Html.ValidationMessageFor(model => model.IdAgente)*@
         </div>
 
         <div class="editor-label">
@@ -52,7 +61,6 @@
             @Html.EditorFor(model => model.Cedula)
             @Html.ValidationMessageFor(model => model.Cedula)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.Telefono)
         </div>
@@ -74,6 +82,9 @@
         </p>
     </fieldset>
 }
+
+
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

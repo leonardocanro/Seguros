@@ -59,9 +59,24 @@
             @Html.DisplayFor(modelItem => item.Direccion)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            <div>
+                <!-- Single button -->
+                <div class="btn-group pull-left">
+                
+                                <a href="@Url.Action("Edit", new { id = item.IdGestion })">
+                                    <span class="fa fa-edit"></span>
+                                    Editar
+                                </a>
+                           
+                           
+                                <a class="aModal" href="@Url.Action("ProductosPorCliente", new { IdGestion = item.IdGestion })">
+                                    <span class="fa fa-cogs"></span>
+                                    Ver Productos
+                                </a>
+                          
+
+                    </div>
+                </div>
         </td>
     </tr>
 }

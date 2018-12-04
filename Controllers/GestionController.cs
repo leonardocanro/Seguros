@@ -40,21 +40,85 @@ namespace Seguros.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.IdAgente = new SelectList(db.Agente, "IdAgente", "NombreAgente");
-            ViewBag.IdAseguradora = new SelectList(db.Aseguradora, "IdAseguradora", "NombreAseguradora");
+            int Id = Int32.Parse(Session["UserId"].ToString());
+           var nombre = db.Agente.Where(x=>x.IdAgente==Id).SingleOrDefault();
+            var Aseguradora = db.Agente.Where(x => x.IdAgente == Id).Select(dto => dto.Aseguradora).SingleOrDefault();//tomamos solo la primera aseguradora del agente      
+            ViewBag.IdAseguradora = nombre.IdAseguradora;
+            ViewBag.IdAgente = nombre.IdAgente;
+            ViewBag.NombreAgente = nombre.NombreAgente;
+            ViewBag.NombreAseguradora = Aseguradora.NombreAseguradora;
             return View();
         }
+        public ActionResult ProductosPorCliente(string IdGestion)// metodo que permite reflejar los productos existente al cliente y poder insertar mas
+        {
+            int id=Int32.Parse(IdGestion);
+            GestionFalabella userGv = db.GestionFalabella.Where(x=>x.IdGestion==id).SingleOrDefault();
+            IEnumerable<Productos> prods = userGv.Productos;
+            IEnumerable<Productos> productos = db.Productos.Where(x => x.IdAseguradora == userGv.IdAseguradora);// tomamos los productos unicamente de la aseguradora asginada al agente
+            var selecListProds = productos.Select(prod => new SelectListItem
+            {
+                Value = prod.IdProducto + "-" + prod.NombreProducto + "-" + prod.NombreProducto.ToLower(),
+                Text = prod.NombreProducto
+            });
+            ViewBag.Id_Prod = selecListProds;
+            ViewBag.NombreCliente = userGv.NombreCliente;
+            ViewBag.IdGestion = IdGestion;
+            return View(prods.ToList());
+        }
+        public ActionResult AgregarProductos(FormCollection formCollection)// metodo que permite insertar productos existentes al cliente
+        {
+            if (Request != null)
+            {
+                string IdGestion = Request["IdGestion"];
+                string strProds = Request["Id_Prod"];
+                string[] lstProds = strProds.Split(',');
+                int id = Int32.Parse(IdGestion);
+                GestionFalabella GestionF = db.GestionFalabella.Find(id);
+                List<Productos> prodsAge = GestionF.Productos.ToList();
+                foreach (string strProdss in lstProds)
+                {
+                    string strIdRol = strProdss.Split('-').FirstOrDefault();
+                    int idPRod = 0;
+                    Int32.TryParse(strIdRol, out idPRod);
+                    if (idPRod != 0)
+                    {
+                        Productos prodAdd = db.Productos.Find(idPRod);
+                        if (prodAdd != null)
+                        {
+                            if (!prodsAge.Any(rl => rl.IdProducto == prodAdd.IdProducto))
+                                GestionF.Productos.Add(prodAdd);
+                        }
+                    }
+                }
+                db.SaveChanges();
+                return RedirectToAction("ProductosPorCliente", new
+                {
+                    IdGestion = IdGestion
+                });
 
+            }
+            return HttpNotFound("No se encontró información!");
+           
+        }
         //
         // POST: /Gestion/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(GestionFalabella gestionfalabella)
+        public ActionResult Create(GestionFalabella gestionfalabella,FormCollection frm)
         {
+           GestionFalabella gestion = new GestionFalabella();
+            var idAseguradora = Request["IdAseguradora"];
+            var idagente = Request["IdAgente"];
             if (ModelState.IsValid)
             {
-                db.GestionFalabella.Add(gestionfalabella);
+                gestion.IdAseguradora = Int32.Parse(idAseguradora);
+                gestion.IdAgente = Int32.Parse(idagente);
+                gestion.NombreCliente = gestionfalabella.NombreCliente;
+                gestion.Telefono = gestionfalabella.Telefono;
+                gestion.Direccion = gestionfalabella.Direccion;
+                gestion.Cedula = gestionfalabella.Cedula;
+                db.GestionFalabella.Add(gestion);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
